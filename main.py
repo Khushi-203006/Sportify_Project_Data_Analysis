@@ -67,11 +67,28 @@ try:
 
     #example
     #input = xyz.JSON 
-
     #output = zyx.csv
 
-    csv_file = os.path.splitext(json_file)[0] + ".csv"
+    #path of historical folder
+    historical_folder = os.path.join(
+        os.getcwd(), # Current working directory
+        "data",
+        "Historical"
+    )
 
+    #create folder if it dosen't exist
+    os.makedirs(historical_folder , exist_ok = True)
+
+    #get filename only
+    file_name = os.path.basename(json_file)
+
+    #create csv name
+    csv_file =os.path.splitext(file_name)[0] + ".csv"
+
+    #create final path
+    csv_file = os.path.join(
+        historical_folder, csv_file
+    )
     #save dataframe as CSV
     df.to_csv(csv_file, index=False) 
 
@@ -84,6 +101,8 @@ try:
         #popup message
         f" Your CSV file is ready!\n Kindly check \n{csv_file}"
     )
+
+    print("CSV file created successfully.")
 
 #if any error occurs
 except Exception as e:
